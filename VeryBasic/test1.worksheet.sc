@@ -22,3 +22,15 @@ def multiplyByTwo(l: List[Int]): List[Int] =
 
 plusOne(scores1)
 multiplyByTwo(scores1)
+
+def plus(a: Int, b: Int): Int =
+  a + b
+
+def multiply(a: Int, b: Int): Int =
+  a * b
+
+def func(l: List[Int], f: (Int, Int) => Int, o: Int): List[Int] =
+  if l.isEmpty then Nil
+  else f(l.head, o) :: func(l.tail, f, o)
+
+func(scores1, multiply, 3)
