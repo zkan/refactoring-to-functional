@@ -34,3 +34,10 @@ def func(l: List[Int], f: (Int, Int) => Int, o: Int): List[Int] =
   else f(l.head, o) :: func(l.tail, f, o)
 
 func(scores1, multiply, 3)
+
+def funcCurrying(f: (Int, Int) => Int)(o: Int)(l: List[Int]): List[Int] =
+  if l.isEmpty then Nil
+  else f(l.head, o) :: func(l.tail, f, o)
+
+val plusOneFunc = funcCurrying(plus)(1)
+plusOneFunc(scores1)
