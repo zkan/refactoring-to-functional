@@ -1,9 +1,7 @@
-println("Hello world!")
-
-val a = "123"
-val b = 1
-val c = 2
-val result = b + c
+package foundation.level2
+//sbt "runMain foundations.runRecursion"
+import scala.annotation.tailrec
+import scala.annotation.targetName
 
 def factorial(n: Int): Int =
   if n <= 1 then 1
@@ -20,5 +18,7 @@ def multiplyByTwo(l: List[Int]): List[Int] =
   if l.isEmpty then Nil
   else l.head * 2 :: plusOne(l.tail)
 
-plusOne(scores1)
-multiplyByTwo(scores1)
+@main def runRecursion(): Unit =
+  println(factorial(5))
+  println(plusOne(scores1))
+  println(multiplyByTwo(scores1))
