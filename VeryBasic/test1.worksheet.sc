@@ -60,3 +60,17 @@ extension (l: List[Int])
 
 // จริง ๆ ตรงนี้ใช้ for loop ก็ได้ แต่ for loop จะไม่ได้บอก intention ที่ชัดเจน (เราต้องเข้าไปอ่านโค้ดใน loop เอง)
 scores1.transform(plus1)
+
+def sum(a: Int, b: Int): Int =
+  a + b
+
+extension (l: List[Int])
+  def myReduce(f: (Int, Int) => Int): Int =
+    l match
+      case Nil    => throw new UnsupportedOperationException("empty.reduce")
+      case h :: t =>
+        t match
+          case Nil => h
+          case _   => f(h, t.myReduce(f))
+
+scores1.myReduce(sum)
