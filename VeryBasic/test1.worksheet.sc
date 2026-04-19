@@ -1,3 +1,4 @@
+import scala.compiletime.ops.string
 println("Hello world!")
 
 val a = "123"
@@ -37,7 +38,25 @@ func(scores1, multiply, 3)
 
 def funcCurrying(f: (Int, Int) => Int)(o: Int)(l: List[Int]): List[Int] =
   if l.isEmpty then Nil
-  else f(l.head, o) :: func(l.tail, f, o)
+  else f(l.head, o) :: funcCurrying(f)(o)(l.tail)
 
 val plusOneFunc = funcCurrying(plus)(1)
 plusOneFunc(scores1)
+
+def myPrintln(s: String): Unit =
+  println(s)
+
+// Func ถูก executed ตรงนี้ ซึ่งถ้าเราเอา currying มาช่วย เราจะควบคุมได้ว่าเราจะไป execute ตรงไหน
+val x = myPrintln("Hello")
+val y = x
+
+def plus1(a: Int): Int =
+  a + 1
+
+extension (l: List[Int])
+  def transform(f: Int => Int): List[Int] =
+    if l.isEmpty then Nil
+    else f(l.head) :: l.tail.transform(f)
+
+// จริง ๆ ตรงนี้ใช้ for loop ก็ได้ แต่ for loop จะไม่ได้บอก intention ที่ชัดเจน (เราต้องเข้าไปอ่านโค้ดใน loop เอง)
+scores1.transform(plus1)
